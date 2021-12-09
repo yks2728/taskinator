@@ -6,7 +6,7 @@ var tasksInProgressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
 var pageContentEl = document.querySelector("#page-content");
 
-var taskFormHandler = function(event) {
+var taskFormHandler = function (event) {
     event.preventDefault();
     var taskNameInput = document.querySelector("input[name='task-name']").value;
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
@@ -27,16 +27,16 @@ var taskFormHandler = function(event) {
     if (isEdit) {
         var taskId = formEl.getAttribute("data-task-id");
         completeEditTask(taskNameInput, TaskTypeInput, taskId);
-    }else {
+    } else {
         var taskDataObj = {
             name: taskNameInput,
             type: taskTypeInput
         };
-        
+
         createTaskEl(taskDataObj);
     }
 };
-    
+
 
 var createTaskEl = function (taskDataObj) {
     var listItemEl = document.createElement("li");
@@ -57,11 +57,11 @@ var createTaskEl = function (taskDataObj) {
     taskIdCounter++;
 };
 
-var createTaskActions = function(taskId) {
+var createTaskActions = function (taskId) {
     // create container to hold elements
     var actionContainerEl = document.createElement("div");
     actionContainerEl.className = "task-actions"
-    
+
     // create edit button
     var editButtonEl = document.createElement("button");
     editButtonEl.textContent = "Edit";
@@ -83,7 +83,7 @@ var createTaskActions = function(taskId) {
     // create status options
     var statusChoices = ["To Do", "In Progress", "Completed"];
 
-    for (var i = 0; i <statusChoices.length; i++) {
+    for (var i = 0; i < statusChoices.length; i++) {
         // create option element
         var statusOptionEl = document.createElement("option");
         statusOptionEl.setAttribute("value", statusChoices[i]);
@@ -96,7 +96,7 @@ var createTaskActions = function(taskId) {
     return actionContainerEl;
 };
 
-var completeEditTask = function(taskName, taskType, taskId) {
+var completeEditTask = function (taskName, taskType, taskId) {
     // find task list item with taskId value
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
@@ -112,7 +112,7 @@ var completeEditTask = function(taskName, taskType, taskId) {
     formEl.querySelector("#save-task").textContent = "Add Task";
 };
 
-var taskButtonHandler = function(event) {
+var taskButtonHandler = function (event) {
     // get target element from event
     var targetEl = event.target;
 
@@ -127,7 +127,7 @@ var taskButtonHandler = function(event) {
     }
 };
 
-var taskStatusChangeHandler = function(event) {
+var taskStatusChangeHandler = function (event) {
     console.log(event.target.value);
 
     // find task list item based on event.target's data-task-id attribute
@@ -139,7 +139,7 @@ var taskStatusChangeHandler = function(event) {
     var statusValue = event.target.value.toLowerCase();
 
 
-  
+
     if (statusValue === "to do") {
         tasksToDoEl.appendChild(taskSelected);
     }
@@ -151,7 +151,7 @@ var taskStatusChangeHandler = function(event) {
     }
 };
 
-var editTask = function(taskId) {
+var editTask = function (taskId) {
     console.log(taskId);
 
     // get task list item element
@@ -167,14 +167,14 @@ var editTask = function(taskId) {
     // write values of taskname and taskType to form to be edited
     document.querySelector("input[name='task-name']").value = taskName;
     document.querySelector("select[name='task-type']").value = taskType;
-    
+
     // set data attribute to the form with a value of the task's id so it knows which one is being edited
     formEl.setAttribute("data-task-id", taskId);
     // update form's button to reflect editing a task rather than creating a new one
     formEl.querySelector("#save-task").textContent = "Save Task";
 };
 
-var deleteTask = function(TaskId) {
+var deleteTask = function (TaskId) {
     console.log(taskId);
     // find task list element with taskId value and remove it
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
